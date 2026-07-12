@@ -17,10 +17,31 @@ let informations = reactive({
 })
 
 async function handleSubmit() {
-  if (!informations.name || !informations.birthday || !informations.email || !informations.phone) {
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const phoneRegex = /^09\d{9}$/
+
+  if (!informations.name || !informations.birthday || !informations.email && !informations.phone) {
     alert("Please fill in all fields.")
     return
   }
+
+  if (
+    informations.email &&
+    !emailRegex.test(informations.email)
+  ) {
+    alert("Email is invalid")
+    return
+  }
+
+  if (
+    informations.phone &&
+    !phoneRegex.test(informations.phone)
+  ) {
+    alert("Phone number is invalid")
+    return
+  }
+
 
   isLoading.value = true;
 
@@ -28,12 +49,11 @@ async function handleSubmit() {
     const response = await formService.send(informations)
     alert("OK Got It ;)", response.data);
 
-    informations = {
-      name: '',
-      birthday: '',
-      email: '',
-      phone: ''
-    }
+    informations.name = ''
+    informations.birthday = ''
+    informations.email = ''
+    informations.phone = ''
+
   } catch (err) {
     alert("Your request was not sent.", err)
   }
@@ -47,21 +67,21 @@ async function handleSubmit() {
 <template>
 
   <form class="info" @submit.prevent="handleSubmit">
-    <label for="name">Name:</label>
+    <label for="name">*Name:</label>
     <input v-model="name" type="text" name="name" required> <br>
 
-    <label for="birthday">Birthday:</label>
+    <label for="birthday">*Birthday:</label>
     <input v-model="birthday" type="date" name="birthday" required> <br>
 
     <label for="email">Email:</label>
-    <input v-model="email" type="email" name="email" required> <br>
+    <input v-model="email" type="email" name="email" > <br>
 
     <label for="phone">Phone:</label>
-    <input v-model="phone" type="tel" name="phone" required> <br>
+    <input v-model="phone" type="tel" name="phone" > <br>
 
     <button>Send</button>
   </form>
-  
+
 </template>
 
 
