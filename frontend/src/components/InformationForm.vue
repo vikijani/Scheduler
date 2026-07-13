@@ -47,15 +47,15 @@ async function handleSubmit() {
 
   try {
     const response = await formService.send(informations)
-    alert("OK Got It ;)", response.data);
+    alert(response.data.message);
 
     informations.name = ''
     informations.birthday = ''
     informations.email = ''
     informations.phone = ''
 
-  } catch (err) {
-    alert("Your request was not sent.", err)
+  } catch (error) {
+    alert(error.response.data.message);
   }
   finally {
     isLoading.value = false;

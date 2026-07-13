@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::post('/send', function () {
-    return response()->json([
-        'message' => 'Message sent successfully!'
-    ]);
-});
+Route::post('/send', [UserController::class, 'store']);
