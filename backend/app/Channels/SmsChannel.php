@@ -1,6 +1,7 @@
 <?php
-
 namespace App\Channels;
+
+use Illuminate\Support\Facades\Log;
 
 class SmsChannel
 {
@@ -8,7 +9,7 @@ class SmsChannel
     {
         $message = $notification->toSms($notifiable);
 
-        logger()->info(
+        Log::channel('sms')->info(
             "SMS to {$notifiable->phone}: {$message->text}"
         );
     }
