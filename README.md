@@ -3,7 +3,7 @@
 A Laravel practice project for sending birthday congratulations via Email or SMS.
 
 ## Tech Stack
-- Laravel 12
+- Laravel 13
 - MySQL
 - Laravel Scheduler
 - Notifications
