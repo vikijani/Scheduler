@@ -1,6 +1,9 @@
 <?php
 namespace App\Notifications;
 
+
+use App\Channels\SmsChannel;
+use App\Messages\SmsMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -31,6 +34,10 @@ class BirthdayNotification extends Notification implements ShouldQueue
             $channels[] = 'mail';
         }
 
+        if($notifiable->phone){
+            $channels[] = SmsChannel::class;
+        }
+
         return $channels;
     }
 
@@ -57,5 +64,10 @@ class BirthdayNotification extends Notification implements ShouldQueue
         return [
             //
         ];
+    }
+
+    public function toSms(object $notifiable): SmsMessage
+    {
+        return (new SmsMessage)->content("Hi {$notifiable->name}, Happy birthday to you🎂.");
     }
 }
