@@ -1,3 +1,5 @@
+This project was developed as part of a backend technical assessment to demonstrate Laravel Scheduler, Queue, Notifications, and full-stack integration using Nuxt 4.
+
 # Birthday Scheduler
 
 A simple full-stack application built with **Nuxt 4**, **Laravel 13**, **MySQL**, and **Tailwind CSS**.
